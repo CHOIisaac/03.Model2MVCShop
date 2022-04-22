@@ -26,20 +26,21 @@ public class AddPurchaseAction extends Action {
 		
 		Product product=productService.getProduct(Integer.parseInt(request.getParameter("prodNo")));
 		
-		user.setUserId(request.getParameter("buyerId"));
+//		user.setUserId(request.getParameter("buyerId"));
+		purchase.setBuyer(user);
+		purchase.setPurchaseProd(product);
 		purchase.setPaymentOption(request.getParameter("paymentOption"));
 		purchase.setReceiverName(request.getParameter("receiverName"));
 		purchase.setReceiverPhone(request.getParameter("receiverPhone"));
 		purchase.setDivyAddr(request.getParameter("divyAddr"));
 		purchase.setDivyRequest(request.getParameter("divyRequest"));
 		purchase.setDivyDate(request.getParameter("divyDate"));
-		purchase.setBuyer(user);
-		purchase.setPurchaseProd(product);
+		purchase.setTranCode("1");
 		System.out.println(purchase);
 		
 		PurchaseService purchaseService = new PurchaseServiceImpl();
 		purchaseService.addPurchase(purchase);
 		
-		return "redirect:/listPurchase.do";
+		return "redirect:/purchase/getPurchase.jsp";
 	}
 }

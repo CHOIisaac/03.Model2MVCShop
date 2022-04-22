@@ -21,7 +21,7 @@ public class AddPurchaseViewAction extends Action {
 		User user = (User)session.getAttribute("user");
 		
 		Purchase purchase = new Purchase();
-		purchase.setPaymentOption(request.getParameter("payment_option"));
+//		purchase.setPaymentOption(request.getParameter("payment_option"));
 //		purchase.setBuyer(request.getParameter("user_name"));
 		
 		int prodNo = Integer.parseInt(request.getParameter("prodNo"));
@@ -38,6 +38,6 @@ public class AddPurchaseViewAction extends Action {
 //		purchaseService.addPurchase(purchase);
 //		
 	
-		return "redirect:/purchase/addPurchaseView.jsp";
+		return "forward:/purchase/addPurchaseView.jsp";
 	}
 }	
