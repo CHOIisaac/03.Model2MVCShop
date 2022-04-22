@@ -27,7 +27,7 @@ public class PurchaseDAO {
 		PreparedStatement stmt = null;
 		
 		try {
-		String sql = "INSERT INTO Transaction VALUES (seq_transaction_tran_no.NEXTVAL,?,?,?,?,?,?,?,?,SYSDATE,?)\"";
+		String sql = "INSERT INTO Transaction VALUES (seq_transaction_tran_no.NEXTVAL,?,?,?,?,?,?,?,?,SYSDATE,?)";
 		stmt = con.prepareStatement(sql);
 		stmt.setInt(1, purchase.getPurchaseProd().getProdNo());
 		stmt.setString(2, purchase.getBuyer().getUserId());
@@ -147,14 +147,19 @@ public class PurchaseDAO {
 		String sql = "SELECT * FROM transaction ";
 		if(search.getSearchCondition() != null) {
 			if(search.getSearchCondition().equals("0")&&  !search.getSearchKeyword().equals("")) {
-				sql += " WHERE  = '" + search.getSearchKeyword()
+				sql += " WHERE prod_no = '" + search.getSearchKeyword()
 						+ "'";
 			}else if(search.getSearchCondition().equals("1")&&  !search.getSearchKeyword().equals("")) {
-				sql += " WHERE user_name = '" + search.getSearchKeyword()
+				sql += " WHERE prod_name = '" + search.getSearchKeyword()
 						+ "'";
+			}else if(search.getSearchCondition().equals("2")&&  !search.getSearchKeyword().equals("")) {
+				sql += " WHERE price = '" + search.getSearchKeyword()
+				+ "'";
+				
 			}
 		}
-		sql += " ORDER BY user_id";
+			
+		sql += " ORDER BY prod_no";
 		
 		
 			int totalCount = this.getTotalCount(sql);

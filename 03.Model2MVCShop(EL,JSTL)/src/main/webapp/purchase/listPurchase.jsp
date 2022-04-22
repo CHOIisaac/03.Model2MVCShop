@@ -69,7 +69,7 @@ function fncGetUserList(currentPage) {
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 10px;">
 	<tr>
-		<td colspan="11">전체 6 건수, 현재 1 페이지</td>
+		<td colspan="11">전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지</td>
 	</tr>
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
@@ -96,7 +96,7 @@ function fncGetUserList(currentPage) {
 		</td>
 		<td></td>
 		<td align="left">
-			<a href="/getUser.do?userId=user21">user21</a>
+			<a href="/getUser.do?userId=${user.userId }">${user.userId }</a>
 		</td>
 		<td></td>
 		<td align="left">SCOTT</td>
@@ -175,7 +175,7 @@ function fncGetUserList(currentPage) {
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
 	<tr>
 		<td align="center">
-		 
+		 	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
 				<jsp:include page="../common/pageNavigator.jsp"/>			
 		</td>
 	</tr>
