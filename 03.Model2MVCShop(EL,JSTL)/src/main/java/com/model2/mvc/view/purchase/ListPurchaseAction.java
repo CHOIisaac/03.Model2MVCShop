@@ -42,5 +42,6 @@ public class ListPurchaseAction extends Action {
 		request.setAttribute("search", search);
 		
 		return "forward:/purchase/listPurchase.jsp";
+		// ½ÇÇè
 	}
 }
