@@ -26,6 +26,7 @@ public class PurchaseDAO {
 		Connection con = DBUtil.getConnection();
 		PreparedStatement stmt = null;
 		
+		System.out.println("=============================");
 		try {
 		String sql = "INSERT INTO Transaction VALUES (seq_transaction_tran_no.NEXTVAL,?,?,?,?,?,?,?,?,SYSDATE,?)";
 		stmt = con.prepareStatement(sql);
@@ -39,6 +40,12 @@ public class PurchaseDAO {
 		stmt.setString(8, purchase.getTranCode());
 		stmt.setString(9, purchase.getDivyDate().replace("-", ""));
 		
+		System.out.println(" 孽府 傈价");
+		int result = stmt.executeUpdate();
+
+		if (result == 1) {
+			System.out.println(" 孽府 傈价 己傍");
+		}
 		
 		}catch(Exception e){
 		e.printStackTrace();

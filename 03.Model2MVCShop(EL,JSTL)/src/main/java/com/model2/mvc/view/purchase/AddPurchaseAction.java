@@ -41,6 +41,8 @@ public class AddPurchaseAction extends Action {
 		PurchaseService purchaseService = new PurchaseServiceImpl();
 		purchaseService.addPurchase(purchase);
 		
+		request.setAttribute("purchase", purchase);
+		
 		return "redirect:/purchase/getPurchase.jsp";
 	}
 }

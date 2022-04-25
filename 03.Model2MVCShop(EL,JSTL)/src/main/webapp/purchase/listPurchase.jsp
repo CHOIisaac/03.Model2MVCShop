@@ -37,13 +37,13 @@ String menu = request.getParameter("menu");
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
-<!--
+
 // 검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
 function fncGetUserList(currentPage) {
 	document.getElementById("currentPage").value = currentPage;
    	document.detailForm.submit();		
 }
--->
+
 </script>
 </head>
 
@@ -89,46 +89,22 @@ function fncGetUserList(currentPage) {
 	</tr>
 
 	
+	<c:set var="i" value="0" />
+	<c:forEach var="user" items="${list }">
+		<c:set var="i" value="${i+1 }" />
 	
 	<tr class="ct_list_pop">
-		<td align="center">
-			<a href="/getPurchase.do?tranNo=10140">3</a>
+		<td align="center">${i }
+			<a href="/getPurchase.do?tranNo=${purchase.tranNo }">${purchase.tranNo }</a>
 		</td>
 		<td></td>
 		<td align="left">
 			<a href="/getUser.do?userId=${user.userId }">${user.userId }</a>
 		</td>
 		<td></td>
-		<td align="left">SCOTT</td>
+		<td align="left">${user.userName }</td>
 		<td></td>
-		<td align="left">null</td>
-		<td></td>
-		<td align="left">현재
-				
-					구매완료
-				상태 입니다.</td>
-		<td></td>
-		<td align="left">
-			
-		</td>
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
-	</tr>
-	
-	
-	<tr class="ct_list_pop">
-		<td align="center">
-			<a href="/getPurchase.do?tranNo=10155">2</a>
-		</td>
-		<td></td>
-		<td align="left">
-			<a href="/getUser.do?userId=user21">user21</a>
-		</td>
-		<td></td>
-		<td align="left">SCOTT</td>
-		<td></td>
-		<td align="left">null</td>
+		<td align="left">${user.phone }</td>
 		<td></td>
 		<td align="left">현재
 				
@@ -140,35 +116,8 @@ function fncGetUserList(currentPage) {
 		</td>
 	</tr>
 	<tr>
-		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
-	</tr>
+	</c:forEach>
 	
-	
-	<tr class="ct_list_pop">
-		<td align="center">
-			<a href="/getPurchase.do?tranNo=10156">1</a>
-		</td>
-		<td></td>
-		<td align="left">
-			<a href="/getUser.do?userId=user21">user21</a>
-		</td>
-		<td></td>
-		<td align="left">SCOTT</td>
-		<td></td>
-		<td align="left">null</td>
-		<td></td>
-		<td align="left">현재
-				
-					구매완료
-				상태 입니다.</td>
-		<td></td>
-		<td align="left">
-			
-		</td>
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
-	</tr>
 	
 </table>
 

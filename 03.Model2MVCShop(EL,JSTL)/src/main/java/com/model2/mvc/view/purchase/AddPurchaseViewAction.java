@@ -27,10 +27,10 @@ public class AddPurchaseViewAction extends Action {
 		int prodNo = Integer.parseInt(request.getParameter("prodNo"));
 		
 		ProductDAO productDAO = new ProductDAO();
-		Product p = null;
-		p = productDAO.findProduct(prodNo);
+		Product product = null;
+		product = productDAO.findProduct(prodNo);
 		
-		request.setAttribute("product", p);
+		request.setAttribute("product", product);
 		
 		System.out.println("AddPurchaseAction ::"+purchase);
 //		
