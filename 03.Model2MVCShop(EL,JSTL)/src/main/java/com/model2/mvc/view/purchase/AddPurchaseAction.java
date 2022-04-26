@@ -43,6 +43,6 @@ public class AddPurchaseAction extends Action {
 		
 		request.setAttribute("purchase", purchase);
 		
-		return "redirect:/purchase/getPurchase.jsp";
+		return "forward:/purchase/getPurchase.jsp";
 	}
 }

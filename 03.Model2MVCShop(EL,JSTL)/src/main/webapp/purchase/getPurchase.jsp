@@ -74,7 +74,7 @@
 	</tr>
 	<tr>
 		<td>¡÷πÆ¿œ</td>
-		<td>${purchase.orderDateDate}</td>
+		<td>${purchase.orderDate}</td>
 		<td></td>
 	</tr>
 </table>
