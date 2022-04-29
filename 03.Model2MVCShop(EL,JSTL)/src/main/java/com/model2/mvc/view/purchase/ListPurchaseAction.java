@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -15,14 +16,14 @@ import com.model2.mvc.service.purchase.impl.PurchaseServiceImpl;
 public class ListPurchaseAction extends Action {
 	@Override
 	public String execute(	HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+		HttpSession session = request.getSession();
 		Search search = new Search();
-		User user = new User();
+		User user = (User)session.getAttribute("user");
 		int currentPage=1;
 		if(request.getParameter("currentPage") != null)
 			currentPage=Integer.parseInt(request.getParameter("currentPage"));
-		
 		search.setCurrentPage(currentPage);
+//		String userId = user.getUserId();
 		search.setSearchCondition(request.getParameter("searchCondition"));
 		search.setSearchKeyword(request.getParameter("searchKeyword"));
 		
@@ -31,6 +32,8 @@ public class ListPurchaseAction extends Action {
 		search.setPageSize(pageSize);
 		
 		PurchaseService service=new PurchaseServiceImpl();
+		System.out.println("=========================================1");
+		System.out.println("=========================================1"+user.getUserId());
 		Map<String,Object> map=service.getPurchaseList(search, user.getUserId());
 		
 		Page resultPage	= 

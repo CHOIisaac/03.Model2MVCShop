@@ -146,61 +146,50 @@ public class PurchaseDAO {
 	}
 	
 	public Map<String, Object> getPurchaseList(Search search, String userId) throws Exception{
-		System.out.println("==========PurchaseDao getProductList 시작=========");
+		System.out.println("==========PurchaseDao getPurchaseList 시작=========");
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		Connection con = DBUtil.getConnection();
 		
-		String sql = "SELECT * FROM transaction ";
-		if(search.getSearchCondition() != null) {
-			if(search.getSearchCondition().equals("0")&&  !search.getSearchKeyword().equals("")) {
-				sql += " WHERE prod_no = '" + search.getSearchKeyword()
-						+ "'";
-			}else if(search.getSearchCondition().equals("1")&&  !search.getSearchKeyword().equals("")) {
-				sql += " WHERE prod_name = '" + search.getSearchKeyword()
-						+ "'";
-			}else if(search.getSearchCondition().equals("2")&&  !search.getSearchKeyword().equals("")) {
-				sql += " WHERE price = '" + search.getSearchKeyword()
-				+ "'";
+		String sql = "SELECT t.tran_no, t.order_data, p.prod_no, p.prod_name, t.receiver_name, t.demailaddr, t.tran_status_code, t.payment_option "
+				+ "FROM transaction t, product p "
+				+ "WHERE p.prod_no = t.prod_no AND t.buyer_id = ? ";
 				
-			}
-		}
-			
-		sql += " ORDER BY prod_no";
-		
+				
 		
 			int totalCount = this.getTotalCount(sql);
 			
 			sql = makeCurrentPageSql(sql, search);
 			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
 			ResultSet rs = pstmt.executeQuery();
 			
+			System.out.println("12313123123123123");
 			System.out.println(search);
 			
 			List<Purchase> list = new ArrayList<Purchase>();
-			
 			while(rs.next()) {
 				Purchase purchase = new Purchase();
 				Product product = new Product();
 				User user = new User();
 				
 				product.setProdNo(rs.getInt("prod_no"));
-				product.setFileName(rs.getString("image_file"));
 				product.setProdName(rs.getString("prod_name"));
-				purchase.setPurchaseProd(product);
+//				product.setFileName(rs.getString("image_file"));
 				
-				user.setUserId(rs.getString("buyer_id"));					
-				purchase.setBuyer(user);
+				purchase.setPurchaseProd(product);
+//				user.setUserId(rs.getString("buyer_id"));
+//				purchase.setBuyer(user.getUserId()); 
+				System.out.println("================Purchase List ================");
 				
 				purchase.setTranNo(rs.getInt("tran_no"));
 				purchase.setReceiverName(rs.getString("receiver_name"));
-				purchase.setReceiverPhone(rs.getString("receiver_phone"));
-				purchase.setDivyRequest(rs.getString("dlvy_request"));
-				purchase.setDivyAddr(rs.getString("dlvy_date"));
+				purchase.setDivyAddr(rs.getString("demailaddr"));
 				purchase.setOrderDate(rs.getDate("order_data"));
-				purchase.setTranCode(rs.getString("tran_status_code"));
+				purchase.setTranCode(rs.getString("tran_status_code").trim());
+				purchase.setPaymentOption(rs.getString("payment_option").trim());
 				
-				System.out.println("DB Purchase List Test"+purchase);
+				System.out.println("================Purchase List ================"+purchase);
 				list.add(purchase);
 				
 			}
