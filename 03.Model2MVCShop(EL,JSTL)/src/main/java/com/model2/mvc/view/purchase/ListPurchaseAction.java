@@ -32,9 +32,9 @@ public class ListPurchaseAction extends Action {
 		search.setPageSize(pageSize);
 		
 		PurchaseService service=new PurchaseServiceImpl();
-		System.out.println("=========================================1");
 		System.out.println("=========================================1"+user.getUserId());
 		Map<String,Object> map=service.getPurchaseList(search, user.getUserId());
+		System.out.println("=========================================1");
 		
 		Page resultPage	= 
 				new Page( currentPage, ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
@@ -43,6 +43,7 @@ public class ListPurchaseAction extends Action {
 		request.setAttribute("list", map.get("list"));
 		request.setAttribute("resultPage", resultPage);
 		request.setAttribute("search", search);
+		System.out.println("1231231321"+map);
 		
 		return "forward:/purchase/listPurchase.jsp";
 		// ½ÇÇè

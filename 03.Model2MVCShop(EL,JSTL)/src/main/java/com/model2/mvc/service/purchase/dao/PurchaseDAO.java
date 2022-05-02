@@ -151,9 +151,9 @@ public class PurchaseDAO {
 		
 		Connection con = DBUtil.getConnection();
 		
-		String sql = "SELECT t.tran_no, t.order_data, p.prod_no, p.prod_name, t.receiver_name, t.demailaddr, t.tran_status_code, t.payment_option "
-				+ "FROM transaction t, product p "
-				+ "WHERE p.prod_no = t.prod_no AND t.buyer_id = ? ";
+		String sql = "SELECT * "
+				+ "FROM transaction "
+				+ "WHERE buyer_id = '"+userId+"'";
 				
 				
 		
@@ -161,7 +161,6 @@ public class PurchaseDAO {
 			
 			sql = makeCurrentPageSql(sql, search);
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, userId);
 			ResultSet rs = pstmt.executeQuery();
 			
 			System.out.println("12313123123123123");
@@ -174,16 +173,19 @@ public class PurchaseDAO {
 				User user = new User();
 				
 				product.setProdNo(rs.getInt("prod_no"));
-				product.setProdName(rs.getString("prod_name"));
+//				product.setProdName(rs.getString("prod_name"));
 //				product.setFileName(rs.getString("image_file"));
 				
 				purchase.setPurchaseProd(product);
-//				user.setUserId(rs.getString("buyer_id"));
-//				purchase.setBuyer(user.getUserId()); 
+				user.setUserId(rs.getString("buyer_id"));
+				purchase.setBuyer(user); 
 				System.out.println("================Purchase List ================");
 				
 				purchase.setTranNo(rs.getInt("tran_no"));
 				purchase.setReceiverName(rs.getString("receiver_name"));
+				purchase.setReceiverPhone(rs.getString("receiver_phone"));
+				purchase.setDivyDate(rs.getString("dlvy_date"));
+				purchase.setDivyRequest(rs.getString("dlvy_request"));
 				purchase.setDivyAddr(rs.getString("demailaddr"));
 				purchase.setOrderDate(rs.getDate("order_data"));
 				purchase.setTranCode(rs.getString("tran_status_code").trim());
